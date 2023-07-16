@@ -36,7 +36,7 @@ sequelize.initDb();
 // endpoints:
 app.get('/', (req, res) =>{
   res.json('Hello, Heroku!');
-});
+})
 // test déploiement hors BDD. Pas de fichier spé car code temporaire.
 require('./src/routes/findAllPokemons')(app);
 require('./src/routes/findPokemonByPk')(app);
