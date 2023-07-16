@@ -1,24 +1,30 @@
-// Retrieving the Express package using require
+ // Retrieving the Express package using require
 // Récupération du paquet express dans code avec require => récup dépendance dans node modules
 const express = require('express');
-const morgan = require('morgan');
-// import morgan et utilisation à la place du logger,utilisation dans le code
 const favicon = require ('serve-favicon');
-// dépendance favicon
 const bodyParser = require('body-parser');
 const sequelize = require('./src/db/sequelize');
-// récup par module sequelize
+const cors = require('cors');
+// create server https:
+const fs = require('fs');
+const path = require('path');
+const https = require('https');
 
 // Creating an instance of the Express application
 // Serveur web sur lequel fonctionnera notre API REST
 const app = express();
-// Port sur lequel nous allons démarrer notre API REST par la suite
+// Port sur lequel nous allons démarrer notre API REST par la suite. En local port = 3000car porcess.env.port vaut undefined, sur Heroku, aura la valeur attribuée dynamiquement par Herokusur l'environnement de prod.
 // Port on which we will start our REST API later
-const port = 3000 ;
+const port = process.env.PORT || 3000;
+/* On récupère notre clé privée et notre certificat (ici ils se trouvent dans le dossier certificate) */
+const key = fs.readFileSync(path.join(__dirname, 'certificate', 'server.key'));
+const cert = fs.readFileSync(path.join(__dirname, 'certificate', 'server.cert'));
+
+const options = { key, cert };
 
 app
     .use(favicon(__dirname + '/favicon.ico'))                                                                                                                           
-    .use(morgan('dev'))
+    .use(cors())
     .use(bodyParser.json());
 // combi des middleware, bien télécharger favicon
 // appel de la méthode use autant de fois que l'on a de middlewares à implémenter
@@ -28,6 +34,10 @@ app
 sequelize.initDb();
 
 // endpoints:
+app.get('/', (req, res) =>{
+  res.json('Hello, Heroku!');
+});
+// test déploiement hors BDD. Pas de fichier spé car code temporaire.
 require('./src/routes/findAllPokemons')(app);
 require('./src/routes/findPokemonByPk')(app);
 require('./src/routes/createPokemon')(app);
@@ -48,6 +58,7 @@ app.use(({res}) => {
 
 // démarre API REST sur port 3000
 // Starting the server and listening on a specified port
-app.listen(port, () => {
+https.createServer(options, app).listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
+
