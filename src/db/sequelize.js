@@ -4,7 +4,7 @@ const UserModel = require('../models/user')
 const pokemons = require('./mock-pokemon')
 const bcrypt = require('bcrypt')
   
-const sequelize = new Sequelize('pokedex', 'root', 'password', {
+const sequelize = new Sequelize('pokedex', 'root', 'root', {
   host: 'localhost',
   dialect: 'mysql',
   dialectOptions: {
