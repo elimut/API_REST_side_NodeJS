@@ -33,7 +33,7 @@ app
 // on peut les chaîner les uns à la suite des autres afin d'établir un ordre en eux
 // __dirname est une variable d'environnement qui vous indique le chemin absolu du répertoire contenant le fichier en cours d'exécution.
 
-sequelize.initDb();
+// sequelize.initDb();
 
 // endpoints:
 app.get("/", (req, res) => {
