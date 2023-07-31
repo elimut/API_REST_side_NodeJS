@@ -6,9 +6,9 @@ const bodyParser = require("body-parser");
 const sequelize = require("./src/db/sequelize");
 const cors = require("cors");
 // create server https:
-const fs = require("fs");
-const path = require("path");
-const https = require("https");
+// const fs = require("fs");
+// const path = require("path");
+// const https = require("https");
 
 // Creating an instance of the Express application
 // Serveur web sur lequel fonctionnera notre API REST
@@ -17,12 +17,12 @@ const app = express();
 // Port on which we will start our REST API later
 const port = process.env.PORT || 3000;
 /* On récupère notre clé privée et notre certificat (ici ils se trouvent dans le dossier certificate) */
-const key = fs.readFileSync(path.join(__dirname, "certificate", "server.key"));
-const cert = fs.readFileSync(
-  path.join(__dirname, "certificate", "server.cert")
-);
+// const key = fs.readFileSync(path.join(__dirname, "certificate", "server.key"));
+// const cert = fs.readFileSync(
+//   path.join(__dirname, "certificate", "server.cert")
+// );
 
-const options = { key, cert };
+// const options = { key, cert };
 
 app
   .use(favicon(__dirname + "/favicon.ico"))
@@ -59,6 +59,8 @@ app.use(({ res }) => {
 
 // démarre API REST sur port 3000
 // Starting the server and listening on a specified port
-https.createServer(options, app).listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
-});
+// https.createServer(options, app).listen(port, () => {
+//   console.log(`Server is running on port: ${port}`);
+// });
+
+app.listen(port, () => console.log(`Notre appli Node est démarrée sur : http://localhost: ${port}`));
