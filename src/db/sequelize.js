@@ -19,16 +19,11 @@ const User = UserModel(sequelize, DataTypes);
 
 // const initDb = () => {
 //   return sequelize.sync({force: true}).then(_ => {
-//     pokemons.map(pokemon => {
-//       Pokemon.create({
-//         name: pokemon.name,
-//         hp: pokemon.hp,
-//         cp: pokemon.cp,
-//         picture: pokemon.picture,
-//         // types: pokemon.types.join()
-//         // retrait join() suite mise en place setter voir models
-//         types: pokemon.types
-//       }).then(pokemon => console.log(pokemon.toJSON()));
+//     admins.map(admin => {
+//       Admin.create({
+//         username: admin.name,
+//         password: admin.password,
+//       }).then(admin => console.log(admin.toJSON()));
 //     })
 //     console.log('La base de donnée a bien été initialisée !');
 //   })
